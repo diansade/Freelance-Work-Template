@@ -29,7 +29,7 @@ function App() {
       {loading && <LoadingScreen />}
       <ScrollProgress />
       <Navbar />
-      <main>
+      <main className="pt-[76px]">
         <Hero />
         <Specials />
         <About />

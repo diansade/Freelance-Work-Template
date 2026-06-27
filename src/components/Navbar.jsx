@@ -22,7 +22,7 @@ function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-charcoal/92 shadow-2xl shadow-black/20 backdrop-blur-xl' : 'bg-charcoal'
       }`}
     >
@@ -31,9 +31,9 @@ function Navbar() {
           <span className="grid h-11 w-11 place-items-center rounded-full bg-ember text-white shadow-glow transition-transform duration-300 group-hover:scale-105">
             <FaUtensils aria-hidden="true" />
           </span>
-          <span>
-            <span className="block font-display text-xl font-bold leading-none">{restaurant.name}</span>
-            <span className="text-xs font-semibold uppercase tracking-[0.26em] text-white/55">Fine Dining</span>
+          <span className="min-w-0">
+            <span className="block whitespace-nowrap font-display text-lg font-bold leading-none sm:text-xl">{restaurant.name}</span>
+            <span className="block whitespace-nowrap text-xs font-semibold uppercase tracking-[0.22em] text-white/55 sm:tracking-[0.26em]">Fine Dining</span>
           </span>
         </a>
 
@@ -70,43 +70,43 @@ function Navbar() {
         </button>
       </nav>
 
-      <div
-        className={`fixed inset-0 z-50 bg-charcoal/70 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
-          open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        onClick={() => setOpen(false)}
-        aria-hidden="true"
-      />
-      <aside
-        className={`fixed right-0 top-0 z-[60] h-dvh w-[86%] max-w-sm bg-charcoal px-6 py-6 text-white shadow-2xl transition-transform duration-300 lg:hidden ${
-          open ? 'translate-x-0' : 'translate-x-full'
-        }`}
-        aria-label="Mobile navigation"
-      >
-        <div className="mb-8 flex items-center justify-between">
-          <span className="font-display text-2xl font-bold">{restaurant.name}</span>
-          <button
-            type="button"
-            className="grid h-11 w-11 place-items-center rounded-full border border-white/15"
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-50 bg-charcoal/70 opacity-100 backdrop-blur-sm transition-opacity duration-300 lg:hidden"
             onClick={() => setOpen(false)}
-            aria-label="Close navigation menu"
+            aria-hidden="true"
+          />
+          <aside
+            className="fixed right-0 top-0 z-[60] h-dvh w-[86%] max-w-sm bg-charcoal px-6 py-6 text-white shadow-2xl transition-transform duration-300 lg:hidden"
+            aria-label="Mobile navigation"
           >
-            <FaXmark aria-hidden="true" />
-          </button>
-        </div>
-        <div className="grid gap-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="rounded-2xl px-4 py-4 text-lg font-semibold text-white/80 transition hover:bg-white/10 hover:text-white"
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </aside>
+            <div className="mb-8 flex items-center justify-between">
+              <span className="font-display text-2xl font-bold">{restaurant.name}</span>
+              <button
+                type="button"
+                className="grid h-11 w-11 place-items-center rounded-full border border-white/15"
+                onClick={() => setOpen(false)}
+                aria-label="Close navigation menu"
+              >
+                <FaXmark aria-hidden="true" />
+              </button>
+            </div>
+            <div className="grid gap-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className="rounded-2xl px-4 py-4 text-lg font-semibold text-white/80 transition hover:bg-white/10 hover:text-white"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </aside>
+        </>
+      )}
     </header>
   );
 }
